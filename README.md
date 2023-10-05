@@ -19,7 +19,7 @@ curl -X POST \
 curl -X POST \
 http://localhost:8091/api/v1/auth/login \
 -H 'Content-Type: application/x-www-form-urlencoded' \
--d 'code=7884'
+-d 'code=6065'
 ```
 
 - 登录后可以获取 Token
@@ -30,7 +30,7 @@ http://localhost:8091/api/v1/auth/login \
 curl -X POST \
 http://localhost:8091/api/v1/chatgpt/chat/completions \
 -H 'Content-Type: application/json;charset=utf-8' \
--H 'Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4ZmciLCJvcGVuSWQiOiJ4ZmciLCJleHAiOjE2OTY5OTE4ODQsImlhdCI6MTY5NjM4NzA4NCwianRpIjoiZTAwMTEwZWItMjEzMS00ODE4LTk2ODEtZjIyNTI2MGY4ZmZlIn0.SQR-_YIKyJ1RiX7e-MdibOHw5U5QNew91U74dDICGZw' \
+-H 'Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4ZmciLCJvcGVuSWQiOiJ4ZmciLCJleHAiOjE2OTcxMTYwNzMsImlhdCI6MTY5NjUxMTI3MywianRpIjoiNzU4YmYzZjQtOTgwZi00MTg4LTkxN2QtZTI5ODI0ZDk3YzYzIn0.bBbBtkBi9_9dhLYBEhNECUFHRa2xo9TxYeA4u9Ac6GE' \
 -d '{
 "messages": [
 {
@@ -43,3 +43,23 @@ http://localhost:8091/api/v1/chatgpt/chat/completions \
 ```
 
 - Token 是通过登录从控制台复制的，注意可别复制错了。
+
+### 4. 查询商品列表
+
+```java
+curl -X GET \
+-H "Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4ZmciLCJvcGVuSWQiOiJ4ZmciLCJleHAiOjE2OTcxMTYwNzMsImlhdCI6MTY5NjUxMTI3MywianRpIjoiNzU4YmYzZjQtOTgwZi00MTg4LTkxN2QtZTI5ODI0ZDk3YzYzIn0.bBbBtkBi9_9dhLYBEhNECUFHRa2xo9TxYeA4u9Ac6GE" \
+-H "Content-Type: application/x-www-form-urlencoded" \
+http://localhost:8091/api/v1/sale/query_product_list
+```
+
+### 5. 用户下单商品
+
+```java
+curl -X POST \
+-H "Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4ZmciLCJvcGVuSWQiOiJ4ZmciLCJleHAiOjE2OTcxMTYwNzMsImlhdCI6MTY5NjUxMTI3MywianRpIjoiNzU4YmYzZjQtOTgwZi00MTg4LTkxN2QtZTI5ODI0ZDk3YzYzIn0.bBbBtkBi9_9dhLYBEhNECUFHRa2xo9TxYeA4u9Ac6GE" \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "productId=1001" \
+http://localhost:8091/api/v1/sale/create_pay_order
+```
+
