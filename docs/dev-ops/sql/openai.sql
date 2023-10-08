@@ -7,7 +7,7 @@
 #
 # 主机: 127.0.0.1 (MySQL 5.6.39)
 # 数据库: openai
-# 生成时间: 2023-10-05 23:19:49 +0000
+# 生成时间: 2023-10-08 01:32:51 +0000
 # ************************************************************
 
 
@@ -46,7 +46,10 @@ CREATE TABLE `openai_order` (
   `pay_time` datetime DEFAULT NULL COMMENT '支付时间',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_order_id` (`order_id`),
+  KEY `idx_openid` (`openid`),
+  KEY `idx_order_status_pay_status_order_time` (`order_time`,`order_status`,`pay_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 LOCK TABLES `openai_order` WRITE;
@@ -54,9 +57,20 @@ LOCK TABLES `openai_order` WRITE;
 
 INSERT INTO `openai_order` (`id`, `openid`, `product_id`, `product_name`, `product_quota`, `product_model_types`, `order_id`, `order_time`, `order_status`, `total_amount`, `pay_type`, `pay_url`, `pay_amount`, `transaction_id`, `pay_status`, `pay_time`, `create_time`, `update_time`)
 VALUES
-	(1,'xfg',1001,'测试商品',100,NULL,'118845061424','2023-10-05 17:02:42',0,0.11,0,'weixin://wxpay/bizpayurl?pr=NFByxsizz',NULL,NULL,1,NULL,'2023-10-05 17:02:41','2023-10-05 20:08:29'),
+	(1,'xfg',1001,'测试商品',100,NULL,'118845061424','2023-10-05 17:02:42',3,0.11,0,'weixin://wxpay/bizpayurl?pr=NFByxsizz',NULL,NULL,1,NULL,'2023-10-05 17:02:41','2023-10-07 19:03:40'),
 	(2,'xfg',1001,'测试商品',100,NULL,'730807176035','2023-10-05 20:35:46',2,0.11,0,'weixin://wxpay/bizpayurl?pr=0ckFdM2zz',0.11,'4200001993202310054200967494',1,'2023-10-05 20:09:10','2023-10-05 20:08:46','2023-10-05 20:42:16'),
-	(3,'xfg',1001,'测试商品',100,NULL,'957726718857','2023-10-05 21:10:37',0,0.11,0,'weixin://wxpay/bizpayurl?pr=5BWAAAezz',NULL,NULL,0,NULL,'2023-10-05 21:10:37','2023-10-05 21:10:37');
+	(3,'xfg',1001,'测试商品',100,NULL,'957726718857','2023-10-05 21:10:37',3,0.11,0,'weixin://wxpay/bizpayurl?pr=5BWAAAezz',NULL,NULL,0,NULL,'2023-10-05 21:10:37','2023-10-06 10:48:07'),
+	(4,'xfg',1001,'测试商品',100,NULL,'911886525135','2023-10-06 10:38:13',2,0.01,0,'weixin://wxpay/bizpayurl?pr=5VXNHs5zz',0.01,'4200002005202310065504004737',1,'2023-10-06 10:48:51','2023-10-06 10:48:13','2023-10-06 10:52:54'),
+	(5,'xfg',1001,'OpenAi 测试商品(3.5)',100,NULL,'175715149006','2023-10-07 18:41:17',2,0.01,0,'weixin://wxpay/bizpayurl?pr=EMrrTSYzz',0.01,'4200002003202310079361212463',1,'2023-10-07 18:52:06','2023-10-07 18:51:17','2023-10-07 18:56:00'),
+	(6,'xfg',1002,'OpenAi 测试商品(3.5)',200,NULL,'535514648535','2023-10-07 18:57:27',3,0.02,0,'weixin://wxpay/bizpayurl?pr=YlCE6Xszz',NULL,NULL,0,NULL,'2023-10-07 18:57:27','2023-10-07 19:03:38'),
+	(7,'xfg',1003,'OpenAi 测试商品(3.5&4.0)',50,NULL,'845537169226','2023-10-07 18:57:35',3,10.00,0,'weixin://wxpay/bizpayurl?pr=A0SVuiXzz',NULL,NULL,0,NULL,'2023-10-07 18:57:34','2023-10-07 19:03:37'),
+	(8,'xfg',1004,'OpenAi 测试商品(3.5&4.0)',100,NULL,'624271053503','2023-10-07 18:57:37',3,18.88,0,'weixin://wxpay/bizpayurl?pr=hHSv2M4zz',NULL,NULL,0,NULL,'2023-10-07 18:57:36','2023-10-07 19:03:36'),
+	(9,'xfg',1001,'OpenAi 测试商品(3.5)',100,NULL,'829590724715','2023-10-07 19:42:00',3,0.01,0,'weixin://wxpay/bizpayurl?pr=YuhyFmOzz',NULL,NULL,0,NULL,'2023-10-07 19:41:59','2023-10-07 20:19:18'),
+	(10,'xfg',1001,'OpenAi 测试商品(3.5)',100,NULL,'959500557346','2023-10-07 20:19:30',3,0.01,0,'因未配置支付渠道，所以暂时不能生成支付URL',NULL,NULL,0,NULL,'2023-10-07 20:19:29','2023-10-08 09:12:19'),
+	(13,'xfg',1001,'OpenAi 测试商品(3.5)',100,NULL,'309388058761','2023-10-08 09:16:36',2,0.01,0,'weixin://wxpay/bizpayurl?pr=VmUfvQ0zz',0.01,'4200001978202310081985000180',1,'2023-10-08 09:24:07','2023-10-08 09:16:35','2023-10-08 09:25:30'),
+	(14,'xfg-test02',1001,'OpenAi 测试商品(3.5)',100,NULL,'087139547716','2023-10-08 09:17:01',3,0.01,0,'因未配置支付渠道，所以暂时不能生成支付URL',NULL,NULL,0,NULL,'2023-10-08 09:17:00','2023-10-08 09:24:44'),
+	(15,'xfg',1002,'OpenAi 测试商品(3.5)',200,NULL,'436646302440','2023-10-08 09:29:03',3,0.02,0,'weixin://wxpay/bizpayurl?pr=yFq9wJszz',NULL,NULL,0,NULL,'2023-10-08 09:29:03','2023-10-08 09:32:43'),
+	(16,'xfg',1003,'OpenAi 测试商品(3.5&4.0)',50,NULL,'178799200110','2023-10-08 09:29:07',3,10.00,0,'weixin://wxpay/bizpayurl?pr=7DF8mmHzz',NULL,NULL,0,NULL,'2023-10-08 09:29:07','2023-10-08 09:32:44');
 
 /*!40000 ALTER TABLE `openai_order` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -88,7 +102,10 @@ LOCK TABLES `openai_product` WRITE;
 
 INSERT INTO `openai_product` (`id`, `product_id`, `product_name`, `product_desc`, `product_model_types`, `quota`, `price`, `sort`, `is_enabled`, `create_time`, `update_time`)
 VALUES
-	(1,1001,'测试商品','测试商品请勿下单',NULL,100,0.11,1,1,'2023-10-05 16:51:47','2023-10-05 16:51:47');
+	(1,1001,'OpenAi 测试商品(3.5)','测试商品请勿下单','gpt-3.5-turbo,gpt-3.5-turbo-16k',100,0.01,1,1,'2023-10-07 18:45:36','2023-10-07 18:45:36'),
+	(2,1002,'OpenAi 测试商品(3.5)','测试商品请勿下单','gpt-3.5-turbo,gpt-3.5-turbo-16k',200,0.02,2,1,'2023-10-07 18:45:42','2023-10-07 18:45:42'),
+	(3,1003,'OpenAi 测试商品(3.5&4.0)','测试商品请勿下单','gpt-3.5-turbo,gpt-3.5-turbo-16k,gpt-4',50,10.00,3,1,'2023-10-07 18:46:41','2023-10-07 18:46:41'),
+	(4,1004,'OpenAi 测试商品(3.5&4.0)','测试商品请勿下单','gpt-3.5-turbo,gpt-3.5-turbo-16k,gpt-4',100,18.88,3,0,'2023-10-08 09:28:47','2023-10-08 09:28:47');
 
 /*!40000 ALTER TABLE `openai_product` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -118,7 +135,7 @@ LOCK TABLES `user_account` WRITE;
 
 INSERT INTO `user_account` (`id`, `openid`, `total_quota`, `surplus_quota`, `model_types`, `status`, `create_time`, `update_time`)
 VALUES
-	(1,'xfg',210,200,'gpt-3.5-turbo,gpt-3.5-turbo-16k',0,'2023-10-03 18:56:13','2023-10-05 20:42:16');
+	(1,'xfg',100,100,'gpt-3.5-turbo,gpt-3.5-turbo-16k',0,'2023-10-03 18:56:13','2023-10-08 09:25:30');
 
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
