@@ -17,19 +17,19 @@ app:
 wxpay:
   config:
     # 状态；true = 开启、false 关闭
-    enabled: false
+    enabled: true
     # 申请支付主体的 appid
-    appid:
+    appid: wx4bd388e42758df34
     # 商户号
-    mchid:
+    mchid: 1649876094
     # 回调地址
     notify-url: http://api.gaga.plus/api/v1/mall/pay_notify
     # 商户API私钥路径
     private-key-path: cert/apiclient_key.pem
     # 商户证书序列号：openssl x509 -in apiclient_cert.pem -noout -serial
-    merchant-serial-number:
+    merchant-serial-number: 3D1FE714D0FE79E87139D4FF9782AD98A5103D30
     # 商户APIV3密钥
-    api-v3-key:
+    api-v3-key: ERfdoklp309876uhjDDDD00poi91EDDl
 
 # 线程池配置
 thread:
@@ -62,7 +62,7 @@ chatglm:
       # 官网地址
       api-host: https://open.bigmodel.cn/
       # 官网申请 https://open.bigmodel.cn/usercenter/apikeys - 自己可申请(默认18块的额度很够用)，也推荐测试学习的时候，使用 ChatGLM
-      api-secret-key: d570f7c5d289cdac2abdfdc562e39f3f.trqz1dH8ZK6ED7Pg
+      api-secret-key: 39580e34e175019c230fdd519817b381.FLKwxdXpzqiRDcAk
 
 # 微信公众号配置信息
 # originalid：原始ID
@@ -78,7 +78,7 @@ wx:
 spring:
   datasource:
     username: root
-    password: 123qwe!@#QWE
+    password: 12qw!@QW
     url: jdbc:mysql://mysql:3306/openai?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=true
     driver-class-name: com.mysql.cj.jdbc.Driver
   hikari:
