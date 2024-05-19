@@ -56,7 +56,7 @@ chatgpt:
   sdk:
     config:
       # 状态；true = 开启、false 关闭
-      enabled: true
+      enabled: false
       # 官网地址 https://api.openai.com/ 1美金:7人民币。或者有ApiHost 这种代理地址和key，淘宝也可以
       api-host: https://pro-share-aws-api.zcyai.com/
       # 官网申请 https://platform.openai.com/account/api-keys
@@ -71,7 +71,7 @@ chatglm:
       # 官网地址
       api-host: https://open.bigmodel.cn/
       # 官网申请 https://open.bigmodel.cn/usercenter/apikeys - 自己可申请(默认18块的额度很够用)，也推荐测试学习的时候，使用 ChatGLM
-      api-secret-key: d570f7c5d289cdac2abdfdc562e39f3f.trqz1dH8ZK6ED7Pg
+      api-secret-key: c626634eecb7fecf3157dfe4045de6b5.WSd5cxPeFyQ3r9JE
 
 # 微信公众号配置信息
 # originalid：原始ID
@@ -79,9 +79,9 @@ chatglm:
 # token：开通接口服务自定义设置
 wx:
   config:
-    originalid: gh_c5ce6e4a0e0e
-    appid: wxad979c0307864a66
-    token: b8b6
+    originalid: gh_a3383e46cd35
+    appid: wx6c972dce478b2c78
+    token: b0801
 
 # 数据库配置；SpringBoot 默认连接池为 HikariDataSource
 spring:
