@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * @author Fuzhengwei bugstack.cn @小傅哥
- * @description
+ * @description 储存聊天的聚合信息和之后走文生文还是文生图
  * @create 2023-07-22 21:09
  */
 @Data
@@ -46,6 +46,7 @@ public class ChatProcessAggregate {
         switch (this.model) {
             case "dall-e-2":
             case "dall-e-3":
+            case "COGVIEW_3":
                 return GenerativeModelVO.IMAGES;
             default:
                 return GenerativeModelVO.TEXT;

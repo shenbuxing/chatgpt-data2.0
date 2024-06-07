@@ -40,7 +40,7 @@ public class NoPayNotifyOrderJob {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
 
     @Timed(value = "no_pay_notify_order_job", description = "定时任务，订单支付状态更新")
-    @Scheduled(cron = "0/3 * * * * ?")
+    @Scheduled(cron = "* * 0/3 * * ?")
     public void exec() {
         try {
             if (null == payService) {

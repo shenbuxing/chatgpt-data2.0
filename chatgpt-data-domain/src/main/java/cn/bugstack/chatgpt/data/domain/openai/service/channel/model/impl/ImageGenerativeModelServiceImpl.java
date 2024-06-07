@@ -27,20 +27,16 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Slf4j
 @Service
 public class ImageGenerativeModelServiceImpl implements IGenerativeModelService {
-
     @Autowired(required = false)
     protected OpenAiSession chatGPTOpenAiSession;
-
     @Resource
     private ThreadPoolExecutor executor;
-
     @Override
     public void doMessageResponse(ChatProcessAggregate chatProcess, ResponseBodyEmitter emitter) throws IOException {
         if (null == chatGPTOpenAiSession) {
-            emitter.send("DALL-E 通道，模型调用未开启，可以选择其他模型对话！");
+            emitter.send(chatProcess.getModel()+"通道，模型调用未开启，可以选择其他模型对话！");
             return;
         }
-
         // 封装请求信息
         StringBuilder prompt = new StringBuilder();
         List<MessageEntity> messages = chatProcess.getMessages();
@@ -51,22 +47,18 @@ public class ImageGenerativeModelServiceImpl implements IGenerativeModelService 
                 prompt.append("\r\n");
             }
         }
-
         // 绘图请求信息
         ImageRequest request = ImageRequest.builder()
                 .prompt(prompt.toString())
                 .model(chatProcess.getModel())
                 .size(ImageEnum.Size.size_1024.getCode())
                 .build();
-
         emitter.send("您的😊图片正在生成中，请耐心等待... \r\n");
-
         executor.execute(() -> {
             ImageResponse imageResponse = null;
             try {
                 imageResponse = chatGPTOpenAiSession.genImages(request);
                 List<Item> items = imageResponse.getData();
-
                 for (Item item : items) {
                     String url = item.getUrl();
                     emitter.send("![](" + url + ")");

@@ -20,14 +20,11 @@ import java.util.Map;
  */
 @Service
 public class ChatService extends AbstractChatService {
-
     @Resource
     private DefaultLogicFactory logicFactory;
-
     public ChatService(ChatGPTService chatGPTService, ChatGLMService chatGLMService) {
         super(chatGPTService, chatGLMService);
     }
-
     @Override
     protected RuleLogicEntity<ChatProcessAggregate> doCheckLogic(ChatProcessAggregate chatProcess, UserAccountQuotaEntity userAccountQuotaEntity, String... logics) throws Exception {
         Map<String, ILogicFilter<UserAccountQuotaEntity>> logicFilterMap = logicFactory.openLogicFilter();
@@ -40,5 +37,4 @@ public class ChatService extends AbstractChatService {
         return entity != null ? entity : RuleLogicEntity.<ChatProcessAggregate>builder()
                 .type(LogicCheckTypeVO.SUCCESS).data(chatProcess).build();
     }
-
 }

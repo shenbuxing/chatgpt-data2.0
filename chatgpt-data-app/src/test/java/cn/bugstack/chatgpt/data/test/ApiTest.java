@@ -33,7 +33,6 @@ import java.util.concurrent.CountDownLatch;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ApiTest {
-
     @Resource
     private OpenAiSession openAiSession;
 

@@ -26,7 +26,6 @@ import javax.annotation.Resource;
 @CrossOrigin("${app.config.cross-origin}")
 @RequestMapping("/api/${app.config.api-version}/auth/")
 public class AuthController {
-
     @Resource
     private IAuthService authService;
 
@@ -74,8 +73,6 @@ public class AuthController {
                     .build();
         }
     }
-
-
     /**
      * 【apix.natapp1.cc 是我在 <a href="https://natapp.cn/">https://natapp.cn</a> 购买的渠道，你需要自己购买一个使用】
      * 鉴权，根据鉴权结果返回 Token 码
@@ -102,14 +99,12 @@ public class AuthController {
                         .info(Constants.ResponseCode.TOKEN_ERROR.getInfo())
                         .build();
             }
-
             // 放行，鉴权成功
             return Response.<String>builder()
                     .code(Constants.ResponseCode.SUCCESS.getCode())
                     .info(Constants.ResponseCode.SUCCESS.getInfo())
                     .data(authStateEntity.getToken())
                     .build();
-
         } catch (Exception e) {
             log.error("鉴权登录校验失败，验证码: {}", code);
             return Response.<String>builder()
@@ -118,5 +113,4 @@ public class AuthController {
                     .build();
         }
     }
-
 }

@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties(ChatGLMSDKConfigProperties.class)
 public class ChatGLMSDKConfig {
-
     @Bean(name = "chatGlMOpenAiSession")
     @ConditionalOnProperty(value = "chatglm.sdk.config.enabled", havingValue = "true", matchIfMissing = false)
     public OpenAiSession openAiSession(ChatGLMSDKConfigProperties properties) {
@@ -24,10 +23,8 @@ public class ChatGLMSDKConfig {
         cn.bugstack.chatglm.session.Configuration configuration = new cn.bugstack.chatglm.session.Configuration();
         configuration.setApiHost(properties.getApiHost());
         configuration.setApiSecretKey(properties.getApiSecretKey());
-
         // 2. 会话工厂
         OpenAiSessionFactory factory = new DefaultOpenAiSessionFactory(configuration);
-
         // 3. 开启会话
         return factory.openSession();
     }

@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,14 +24,11 @@ public class ChatGPTService implements OpenAiGroupService {
 
     @Autowired(required = false)
     protected OpenAiSession chatGPTOpenAiSession;
-
     private final Map<GenerativeModelVO, IGenerativeModelService> generativeModelGroup = new HashMap<>();
-
     public ChatGPTService(ImageGenerativeModelServiceImpl imageGenerativeModelService, TextGenerativeModelServiceImpl textGenerativeModelService) {
         generativeModelGroup.put(GenerativeModelVO.IMAGES, imageGenerativeModelService);
         generativeModelGroup.put(GenerativeModelVO.TEXT, textGenerativeModelService);
     }
-
     @Override
     public void doMessageResponse(ChatProcessAggregate chatProcess, ResponseBodyEmitter emitter) throws Exception {
         GenerativeModelVO generativeModelVO = chatProcess.getGenerativeModelVO();

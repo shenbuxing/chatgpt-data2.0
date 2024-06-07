@@ -5,7 +5,6 @@ import cn.bugstack.chatgpt.data.domain.openai.model.aggregates.ChatProcessAggreg
 import cn.bugstack.chatgpt.data.domain.openai.model.entity.MessageEntity;
 import cn.bugstack.chatgpt.data.domain.openai.service.IChatService;
 import cn.bugstack.chatgpt.data.types.enums.ChatGPTModel;
-import cn.bugstack.chatgpt.domain.chat.ChatCompletionRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,9 +36,7 @@ public class ChatServiceTest {
         chatProcessAggregate.setOpenid("xfg");
         chatProcessAggregate.setModel(ChatGPTModel.DALL_E_3.getCode());
         chatProcessAggregate.setMessages(Collections.singletonList(MessageEntity.builder().role(Constants.Role.USER.getCode()).content("画一个小狗").build()));
-
         ResponseBodyEmitter completions = chatService.completions(emitter, chatProcessAggregate);
-
         // 等待
         new CountDownLatch(1).await();
 

@@ -61,7 +61,6 @@ chatgpt:
       api-host: https://pro-share-aws-api.zcyai.com/
       # 官网申请 https://platform.openai.com/account/api-keys
       api-key: sk-oLkakcax33mJl628D3A533Fd67A24602Ac37D69***
-
 # ChatGLM SDK Config
 chatglm:
   sdk:
@@ -71,7 +70,8 @@ chatglm:
       # 官网地址
       api-host: https://open.bigmodel.cn/
       # 官网申请 https://open.bigmodel.cn/usercenter/apikeys - 自己可申请(默认18块的额度很够用)，也推荐测试学习的时候，使用 ChatGLM
-      api-secret-key: c626634eecb7fecf3157dfe4045de6b5.WSd5cxPeFyQ3r9JE
+      api-secret-key: 2403470fab4b7498b3a4ceeceabe876a.F1Wo2GGprWA6ifCu
+
 
 # 微信公众号配置信息
 # originalid：原始ID
@@ -81,7 +81,7 @@ wx:
   config:
     originalid: gh_a3383e46cd35
     appid: wx6c972dce478b2c78
-    token: b0801
+    token: b8b6
 
 # 数据库配置；SpringBoot 默认连接池为 HikariDataSource
 spring:
@@ -100,7 +100,6 @@ spring:
     connection-timeout: 30000 #数据库连接超时时间,默认30秒，即30000
     connection-test-query: SELECT 1
   type: com.zaxxer.hikari.HikariDataSource
-
 mybatis:
   mapper-locations: classpath:/mybatis/mapper/*.xml
   config-location:  classpath:/mybatis/config/mybatis-config.xml

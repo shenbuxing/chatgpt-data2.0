@@ -64,7 +64,6 @@ public class WeiXinPortalController {
             return null;
         }
     }
-
     @PostMapping(produces = "application/xml; charset=UTF-8")
     public String post(@PathVariable String appid,
                        @RequestBody String requestBody,
@@ -78,7 +77,6 @@ public class WeiXinPortalController {
             log.info("接收微信公众号信息请求{}开始 {}", openid, requestBody);
             // 消息转换
             MessageTextEntity message = XmlUtil.xmlToBean(requestBody, MessageTextEntity.class);
-
             // 构建实体
             UserBehaviorMessageEntity entity = UserBehaviorMessageEntity.builder()
                     .openId(openid)
@@ -88,7 +86,6 @@ public class WeiXinPortalController {
                     .event(message.getEvent())
                     .createTime(new Date(Long.parseLong(message.getCreateTime()) * 1000L))
                     .build();
-
             // 受理消息
             String result = weiXinBehaviorService.acceptUserBehavior(entity);
             log.info("接收微信公众号信息请求{}完成 {}", openid, result);

@@ -30,7 +30,7 @@ http://localhost:8091/api/v1/auth/login \
 curl -X POST \
 http://localhost:8091/api/v1/chatgpt/chat/completions \
 -H 'Content-Type: application/json;charset=utf-8' \
--H 'Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4ZmciLCJvcGVuSWQiOiJ4ZmciLCJleHAiOjE2OTcxNjUxNzgsImlhdCI6MTY5NjU2MDM3OCwianRpIjoiN2E3YjdlODktZDZmMC00YTczLWIwZGEtNGE4OWJmNTkxYmI5In0.ztpGYLWG5My7Jg3DCFie6tG5EUDE2ddZXqmetrE19_g' \
+-H 'Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvY0djWTZhXzRoeUJxR0ExYzloSlVnT29JdWlFIiwib3BlbklkIjoib2NHY1k2YV80aHlCcUdBMWM5aEpVZ09vSXVpRSIsImV4cCI6MTcxNzAwNTQ0NSwiaWF0IjoxNzE2NDAwNjQ1LCJqdGkiOiJlY2FjMmVhNy0xNGRiLTQ5ZTctOTI0MC0yZGU2ODhmMjcwMzAifQ.3Oybg4pcy3xPwhDzlV2esUmFnZXT1lpmB0MVcbM1id8' \
 -d '{
 "messages": [
 {
@@ -48,7 +48,7 @@ http://localhost:8091/api/v1/chatgpt/chat/completions \
 
 ```java
 curl -X GET \
--H "Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4ZmciLCJvcGVuSWQiOiJ4ZmciLCJleHAiOjE2OTcxNjUxNzgsImlhdCI6MTY5NjU2MDM3OCwianRpIjoiN2E3YjdlODktZDZmMC00YTczLWIwZGEtNGE4OWJmNTkxYmI5In0.ztpGYLWG5My7Jg3DCFie6tG5EUDE2ddZXqmetrE19_g" \
+-H "Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvY0djWTZhXzRoeUJxR0ExYzloSlVnT29JdWlFIiwib3BlbklkIjoib2NHY1k2YV80aHlCcUdBMWM5aEpVZ09vSXVpRSIsImV4cCI6MTcxNzAwNTQ0NSwiaWF0IjoxNzE2NDAwNjQ1LCJqdGkiOiJlY2FjMmVhNy0xNGRiLTQ5ZTctOTI0MC0yZGU2ODhmMjcwMzAifQ.3Oybg4pcy3xPwhDzlV2esUmFnZXT1lpmB0MVcbM1id8" \
 -H "Content-Type: application/x-www-form-urlencoded" \
 http://localhost:8091/api/v1/sale/query_product_list
 ```
@@ -57,7 +57,7 @@ http://localhost:8091/api/v1/sale/query_product_list
 
 ```java
 curl -X POST \
--H "Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4ZmciLCJvcGVuSWQiOiJ4ZmciLCJleHAiOjE2OTcxNjUxNzgsImlhdCI6MTY5NjU2MDM3OCwianRpIjoiN2E3YjdlODktZDZmMC00YTczLWIwZGEtNGE4OWJmNTkxYmI5In0.ztpGYLWG5My7Jg3DCFie6tG5EUDE2ddZXqmetrE19_g" \
+-H "Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvY0djWTZhXzRoeUJxR0ExYzloSlVnT29JdWlFIiwib3BlbklkIjoib2NHY1k2YV80aHlCcUdBMWM5aEpVZ09vSXVpRSIsImV4cCI6MTcxNzAwNTQ0NSwiaWF0IjoxNzE2NDAwNjQ1LCJqdGkiOiJlY2FjMmVhNy0xNGRiLTQ5ZTctOTI0MC0yZGU2ODhmMjcwMzAifQ.3Oybg4pcy3xPwhDzlV2esUmFnZXT1lpmB0MVcbM1id8" \
 -H "Content-Type: application/x-www-form-urlencoded" \
 -d "productId=1001" \
 http://localhost:8091/api/v1/sale/create_pay_order

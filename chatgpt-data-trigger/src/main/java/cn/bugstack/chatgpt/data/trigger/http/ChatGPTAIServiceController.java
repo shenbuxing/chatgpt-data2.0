@@ -7,7 +7,6 @@ import cn.bugstack.chatgpt.data.domain.openai.service.IChatService;
 import cn.bugstack.chatgpt.data.trigger.http.dto.ChatGPTRequestDTO;
 import cn.bugstack.chatgpt.data.types.common.Constants;
 import cn.bugstack.chatgpt.data.types.exception.ChatGPTException;
-import cn.bugstack.chatgpt.data.types.model.Response;
 import com.alibaba.fastjson.JSON;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -75,6 +74,7 @@ public class ChatGPTAIServiceController {
     )
     @RequestMapping(value = "chat/completions", method = RequestMethod.POST)
     public ResponseBodyEmitter completionsStream(@RequestBody ChatGPTRequestDTO request, @RequestHeader("Authorization") String token, HttpServletResponse response) {
+        System.out.println("流式问答请求开始");
         log.info("流式问答请求开始，使用模型：{} 请求信息：{}", request.getModel(), JSON.toJSONString(request.getMessages()));
         try {
             // 1. 基础配置；流式输出、编码、禁用缓存
@@ -85,9 +85,9 @@ public class ChatGPTAIServiceController {
             // 2. 构建异步响应对象【对 Token 过期拦截】
             ResponseBodyEmitter emitter = new ResponseBodyEmitter(3 * 60 * 1000L);
             boolean success = authService.checkToken(token);
-
             if (!success) {
                 try {
+                    log.error("Token 过期，请重新登录");
                     emitter.send(Constants.ResponseCode.TOKEN_ERROR.getCode());
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -99,7 +99,6 @@ public class ChatGPTAIServiceController {
             // 3. 获取 OpenID
             String openid = authService.openid(token);
             log.info("流式问答请求处理，openid:{} 请求模型:{}", openid, request.getModel());
-
             // 4. 构建参数
             ChatProcessAggregate chatProcessAggregate = ChatProcessAggregate.builder()
                     .openid(openid)
@@ -112,15 +111,14 @@ public class ChatGPTAIServiceController {
                                     .build())
                             .collect(Collectors.toList()))
                     .build();
-
             // 5. 请求结果&返回
-            return chatService.completions(emitter, chatProcessAggregate);
+            ResponseBodyEmitter completions = chatService.completions(emitter, chatProcessAggregate);
+            return completions;
         } catch (Exception e) {
             log.error("流式应答，请求模型：{} 发生异常", request.getModel(), e);
             throw new ChatGPTException(e.getMessage());
         }
     }
-
     public ResponseBodyEmitter completionsStreamError(@RequestBody ChatGPTRequestDTO request, @RequestHeader("Authorization") String token, HttpServletResponse response) throws IOException {
         response.setContentType("text/event-stream");
         response.setCharacterEncoding("UTF-8");

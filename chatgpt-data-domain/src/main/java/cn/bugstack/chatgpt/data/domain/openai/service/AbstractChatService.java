@@ -44,11 +44,10 @@ public abstract class AbstractChatService implements IChatService {
             emitter.onCompletion(() -> {
                 log.info("流式问答请求完成，使用模型：{}", chatProcess.getModel());
             });
-            emitter.onError(throwable -> log.error("流式问答请求异常，使用模型：{}", chatProcess.getModel(), throwable));
-
+            emitter.onError(throwable ->
+                    log.error("流式问答请求异常，使用模型：{}", chatProcess.getModel(), throwable));
             // 2. 账户获取
             UserAccountQuotaEntity userAccountQuotaEntity = openAiRepository.queryUserAccount(chatProcess.getOpenid());
-
             // 3. 规则过滤
             RuleLogicEntity<ChatProcessAggregate> ruleLogicEntity = this.doCheckLogic(chatProcess, userAccountQuotaEntity,
                     DefaultLogicFactory.LogicModel.ACCESS_LIMIT.getCode(),
@@ -57,19 +56,18 @@ public abstract class AbstractChatService implements IChatService {
                     null != userAccountQuotaEntity ? DefaultLogicFactory.LogicModel.MODEL_TYPE.getCode() : DefaultLogicFactory.LogicModel.NULL.getCode(),
                     null != userAccountQuotaEntity ? DefaultLogicFactory.LogicModel.USER_QUOTA.getCode() : DefaultLogicFactory.LogicModel.NULL.getCode()
             );
-
             if (!LogicCheckTypeVO.SUCCESS.equals(ruleLogicEntity.getType())) {
                 emitter.send(ruleLogicEntity.getInfo());
                 emitter.complete();
                 return emitter;
             }
-
+            log.info("规则过滤后，使用模型：{}");
             // 4. 应答处理 【ChatGPT、ChatGLM 策略模式】
             openAiGroup.get(chatProcess.getChannel()).doMessageResponse(ruleLogicEntity.getData(), emitter);
-        } catch (Exception e) {
+            log.info("ggg}");
+        } catch (Exception e){
             throw new ChatGPTException(Constants.ResponseCode.UN_ERROR.getCode(), Constants.ResponseCode.UN_ERROR.getInfo());
         }
-
         // 5. 返回结果
         return emitter;
     }

@@ -32,10 +32,8 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class TextGenerativeModelServiceImpl implements IGenerativeModelService {
-
     @Autowired(required = false)
     protected OpenAiSession chatGPTOpenAiSession;
-
     @Override
     public void doMessageResponse(ChatProcessAggregate chatProcess, ResponseBodyEmitter emitter) throws IOException {
         if (null == chatGPTOpenAiSession) {
@@ -59,7 +57,6 @@ public class TextGenerativeModelServiceImpl implements IGenerativeModelService {
                 .messages(messages)
                 .model(chatProcess.getModel())
                 .build();
-
         // 3.2 请求应答
         chatGPTOpenAiSession.chatCompletions(chatCompletion, new EventSourceListener() {
             @Override
