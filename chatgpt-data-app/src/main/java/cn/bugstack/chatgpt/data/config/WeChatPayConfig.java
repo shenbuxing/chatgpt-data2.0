@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -27,7 +26,6 @@ import java.io.InputStream;
 @Configuration
 @EnableConfigurationProperties(WeChatPayConfigProperties.class)
 public class WeChatPayConfig {
-
     /**
      * 一个商户号只能初始化一个配置，否则会因为重复的下载任务报错
      *
@@ -35,16 +33,17 @@ public class WeChatPayConfig {
      * @return NativePay
      */
     @Bean
-    @ConditionalOnProperty(value = "wxpay.config.enabled", havingValue = "true", matchIfMissing = false)
+    @ConditionalOnProperty(value = "wxpay.config.enabled", havingValue = "true")
     public NativePayService buildNativePayService(WeChatPayConfigProperties properties) {
         // 支付配置
+        log.info("微信支付配置：{}", properties.toString());
+        log.info("微信支付配置：{}", properties.isEnable());
         Config config = new RSAAutoCertificateConfig.Builder()
                 .merchantId(properties.getMchid())
                 .privateKeyFromPath(getFilePath(properties.getPrivateKeyPath()))
                 .merchantSerialNumber(properties.getMerchantSerialNumber())
                 .apiV3Key(properties.getApiV3Key())
                 .build();
-
         // NativePay 支付服务
         return new NativePayService.Builder().config(config).build();
     }
